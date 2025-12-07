@@ -22,4 +22,10 @@ public class PinController {
         PinResponse response = pinService.krijoPin(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PinResponse> getPin(@PathVariable String id) {
+        PinResponse response = pinService.getPinById(id);
+        return ResponseEntity.ok(response);
+    }
 }

@@ -30,6 +30,13 @@ public class PinService {
         return mapToResponse(savedPin);
     }
 
+    public PinResponse getPinById(String id) {
+        Pin pin = pinRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pin not found with id: " + id));
+        return mapToResponse(pin);
+    }
+
+
     private PinResponse mapToResponse(Pin pin) {
         return PinResponse.builder()
                 .id(pin.getId())
