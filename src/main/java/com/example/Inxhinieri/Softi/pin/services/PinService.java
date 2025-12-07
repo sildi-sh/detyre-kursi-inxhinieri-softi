@@ -36,6 +36,24 @@ public class PinService {
         return mapToResponse(pin);
     }
 
+    public PinResponse updatePin(String id, PinRequest request) {
+        Pin pin = pinRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pin not found with id: " + id));
+
+        // Update only what is provided
+        if (request.latitude != null) pin.setLatitude(request.latitude);
+        if (request.longitude != null) pin.setLongitude(request.longitude);
+        if (request.pinType != null) pin.setType(request.pinType);
+        if (request.name != null) pin.setName(request.name);
+        if (request.description != null) pin.setDescription(request.description);
+        if (request.trackId != null) pin.setTrackId(request.trackId);
+
+        Pin updated = pinRepository.save(pin);
+
+        return mapToResponse(updated);
+    }
+
+
 
     private PinResponse mapToResponse(Pin pin) {
         return PinResponse.builder()
