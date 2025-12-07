@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "track")
+@Table(name = "pin")
 @Data
 @NoArgsConstructor
 public class Pin {
