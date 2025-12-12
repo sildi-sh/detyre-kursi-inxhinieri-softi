@@ -1,8 +1,8 @@
-##Hikim
+# Hikim
 
-#Pjestaret e Grupit
-
-Heldi Lami
-Neim Sinaj
-Sili Sherolli
-Xhoni Gjermeni
+## Pjestaret e Grupit
+<br>
+Heldi Lami <br>
+Neim Sinaj <br>
+Sili Sherolli <br>
+Xhoni Gjermeni <br>
