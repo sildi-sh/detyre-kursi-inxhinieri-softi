@@ -3,5 +3,5 @@
 ## Pjestaret e Grupit
 Heldi Lami <br>
 Neim Sinaj <br>
-Sili Sherolli <br>
+Sildi Sherolli <br>
 Xhoni Gjermeni <br>
