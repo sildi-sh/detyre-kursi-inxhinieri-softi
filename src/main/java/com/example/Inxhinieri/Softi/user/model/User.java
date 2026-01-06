@@ -1,7 +1,6 @@
 package com.example.Inxhinieri.Softi.user.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -74,6 +73,5 @@ public class User {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-// getters + setters
 }
 
