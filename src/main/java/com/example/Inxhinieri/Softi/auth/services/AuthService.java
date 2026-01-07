@@ -4,7 +4,7 @@ import com.example.Inxhinieri.Softi.auth.dto.LoginRequest;
 import com.example.Inxhinieri.Softi.auth.dto.LoginResponse;
 import com.example.Inxhinieri.Softi.auth.dto.SignupRequest;
 import com.example.Inxhinieri.Softi.user.model.User;
-import com.example.Inxhinieri.Softi.auth.repository.UserRepository;
+import com.example.Inxhinieri.Softi.user.repository.UserRepository;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
