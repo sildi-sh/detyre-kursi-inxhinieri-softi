@@ -6,6 +6,7 @@ import com.example.Inxhinieri.Softi.pin.model.Pin;
 import com.example.Inxhinieri.Softi.pin.repository.PinRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -65,5 +66,22 @@ public class PinService {
                 .name(pin.getName())
                 .description(pin.getDescription())
                 .build();
+    }
+    public List<PinResponse> getAllPins(){
+        return pinRepository.findAll().stream().map(
+                pin -> PinResponse.builder()
+                        .id(pin.getId())
+                        .trackId(pin.getTrackId())
+                        .latitude(pin.getLatitude())
+                        .longitude(pin.getLongitude())
+                        .type(pin.getType())
+                        .name(pin.getName())
+                        .description(pin.getDescription())
+                        .build()
+        ).toList();
+    }
+
+    public void deletePin(String id){
+        pinRepository.deleteById(id);
     }
 }
