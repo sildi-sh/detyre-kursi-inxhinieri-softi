@@ -1,40 +1,34 @@
 package com.example.Inxhinieri.Softi.report.model;
 
-
 import com.example.Inxhinieri.Softi.report.enums.ReportStatus;
 import com.example.Inxhinieri.Softi.report.enums.TargetType;
-import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "report")
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
 public class Report {
-
-    @Id
-    @Column(length = 36)
     private String id;
-
-    @Column(name = "reporter_id", length = 36, nullable = false)
     private String reporterId;
-
-    @Column(name = "target_id", length = 36, nullable = false)
     private String targetId;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "target_type")
     private TargetType targetType;
-
-    @Enumerated(EnumType.STRING)
-    private ReportStatus status = ReportStatus.OPEN;
-
-    @Column(name = "handled_by", length = 36)
-    private String handledBy;
-
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
+    private String reason;
+    private ReportStatus status;
     private LocalDateTime createdAt;
+
+    // Konstruktori bosh
+    public Report() {}
+
+    // Getter dhe Setter manuale (Kjo heq erorret ne Service dhe Test)
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public String getReporterId() { return reporterId; }
+    public void setReporterId(String reporterId) { this.reporterId = reporterId; }
+    public String getTargetId() { return targetId; }
+    public void setTargetId(String targetId) { this.targetId = targetId; }
+    public TargetType getTargetType() { return targetType; }
+    public void setTargetType(TargetType targetType) { this.targetType = targetType; }
+    public String getReason() { return reason; }
+    public void setReason(String reason) { this.reason = reason; }
+    public ReportStatus getStatus() { return status; }
+    public void setStatus(ReportStatus status) { this.status = status; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
