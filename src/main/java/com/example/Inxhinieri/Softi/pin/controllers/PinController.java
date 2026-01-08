@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/pins")
 public class PinController {
@@ -36,5 +38,16 @@ public class PinController {
 
         PinResponse response = pinService.updatePin(id, request);
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePin(@PathVariable String id) {
+        pinService.deletePin(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<PinResponse>> getAllPins() {
+        return ResponseEntity.ok(pinService.getAllPins());
     }
 }
