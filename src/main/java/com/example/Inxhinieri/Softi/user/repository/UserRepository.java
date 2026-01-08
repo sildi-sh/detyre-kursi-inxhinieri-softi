@@ -1,4 +1,4 @@
-package com.example.Inxhinieri.Softi.auth.repository;
+package com.example.Inxhinieri.Softi.user.repository;
 
 import com.example.Inxhinieri.Softi.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -26,16 +26,6 @@ public class TrackService {
      * @return TrackResponse me të dhënat e trackut të krijuar.
      */
     public TrackResponse krijoTrack(TrackRequest request, String currentUserId) {
-        System.out.println("------------------------------------------");
-        System.out.println("TRACK SERVICE DEBUGGING");
-        System.out.println("Authenticated User ID: " + currentUserId);
-        System.out.println("Request Name: " + request.getName());
-        System.out.println("Request Description: " + request.getDescription());
-        System.out.println("Request Difficulty: " + request.getDifficulty());
-        System.out.println("Request Length: " + request.getLength());
-        System.out.println("Request IsPublic: " + request.getIs_public());
-        System.out.println("------------------------------------------");
-
         Track track = new Track();
         track.setId(UUID.randomUUID().toString());
         track.setUserId(currentUserId);
