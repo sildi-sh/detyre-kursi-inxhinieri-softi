@@ -2,56 +2,58 @@ package com.example.Inxhinieri.Softi.booking.model;
 
 import com.example.Inxhinieri.Softi.booking.enums.BookingStatus;
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.sql.Types;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "bookings")
+@Table(name = "booking")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id; // UUID sipas diagramës
+    @JdbcTypeCode(Types.CHAR)
+    @Column(name = "id", length = 36, nullable = false)
+    private String id;
 
-    private String userId;
+    @Column(name = "guide_id")
+    @JdbcTypeCode(Types.CHAR)
     private String guideId;
 
-    private LocalDateTime bookingDate; // Data e udhëtimit
-    private int numParticipants; // numParticipants sipas diagramës
+    @Column(name = "user_id")
+    @JdbcTypeCode(Types.CHAR)
+    private String userId;
+
+    @Column(name = "slot_id")
+    @JdbcTypeCode(Types.CHAR)
+    private String slotId;
+
+    @Column(name = "booking_date")
+    private LocalDateTime bookingDate;
+
+    @Column(name = "num_participants", nullable = false)
+    private int numParticipants;
+
+    @Column(name = "total_price")
     private Double totalPrice;
 
     @Enumerated(EnumType.STRING)
-    private BookingStatus status; // Statusi (Pending, Confirmed, etj.)
+    @Column(name = "status")
+    private BookingStatus status;
 
+    @Setter(AccessLevel.NONE) // Prevents manual editing of the creation timestamp
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
-
-    // --- GETTERS & SETTERS (Këto rregullojnë vijat e kuqe te Service) ---
-
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
-    public String getUserId() { return userId; }
-    public void setUserId(String userId) { this.userId = userId; }
-
-    public String getGuideId() { return guideId; }
-    public void setGuideId(String guideId) { this.guideId = guideId; }
-
-    public LocalDateTime getBookingDate() { return bookingDate; }
-    public void setBookingDate(LocalDateTime bookingDate) { this.bookingDate = bookingDate; }
-
-    public int getNumParticipants() { return numParticipants; }
-    public void setNumParticipants(int numParticipants) { this.numParticipants = numParticipants; }
-
-    public Double getTotalPrice() { return totalPrice; }
-    public void setTotalPrice(Double totalPrice) { this.totalPrice = totalPrice; }
-
-    public BookingStatus getStatus() { return status; }
-    public void setStatus(BookingStatus status) { this.status = status; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
 }
