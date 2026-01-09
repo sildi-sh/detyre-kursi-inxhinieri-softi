@@ -20,31 +20,33 @@ import java.util.UUID;
 public class Guide {
 
     @Id
-    @Column(name = "id", length = 36)
-    private String id = UUID.randomUUID().toString(); // Gjeneron automatikisht një ID unike
+    // Duke vendosur columnDefinition "CHAR(36)", kodi tani perputhet 100% me DB
+    @Column(name = "id", columnDefinition = "CHAR(36)", nullable = false, updatable = false)
+    private String id = UUID.randomUUID().toString();
 
     @Column(nullable = false)
-    private String title; // Nga diagrami: title : string
+    private String title;
 
     @Column(columnDefinition = "LONGTEXT")
-    private String description; // Nga diagrami: description : string
+    private String description;
 
-    private String location; // Nga diagrami: location : string
+    private String location;
 
-    private String difficulty; // Nga diagrami: difficulty : Difficulty (Enum)
+    private String difficulty;
 
     @Column(name = "base_price")
-    private Double basePrice; // Nga diagrami: basePrice : decimal
+    private Double basePrice;
 
     @Column(name = "max_participants")
-    private Integer maxParticipants; // Nga diagrami: maxParticipants : int
+    private Integer maxParticipants;
 
     @Column(name = "is_active")
-    private Boolean isActive = true; // Nga diagrami: isActive : boolean
+    private Boolean isActive = true;
 
-    @Column(name = "user_id", length = 36)
-    private String userId; // Lidhja me klasën User
+    // Edhe lidhjet me User dhe Business duhet te jene CHAR(36) nese ID-te e tyre jane te tilla
+    @Column(name = "user_id", columnDefinition = "CHAR(36)")
+    private String userId;
 
-    @Column(name = "business_id", length = 36)
-    private String businessId; // Lidhja me BusinessProfile
+    @Column(name = "business_id", columnDefinition = "CHAR(36)")
+    private String businessId;
 }
