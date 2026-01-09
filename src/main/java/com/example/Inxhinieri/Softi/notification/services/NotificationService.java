@@ -23,13 +23,7 @@ public class NotificationService {
   public NotificationResponseDto create(CreateNotificationDto dto) {
     Notification notification = new Notification();
     notification.setUserId(dto.getUserId());
-    notification.setTitle(dto.getTitle());
     notification.setMessage(dto.getMessage());
-    if (dto.getType() != null) {
-      notification.setType(Notification.Type.valueOf(dto.getType().name()));
-    }
-    notification.setRead(false);
-
     Notification saved = notificationRepository.save(notification);
     return toResponseDto(saved);
   }
@@ -45,7 +39,6 @@ public class NotificationService {
   public NotificationResponseDto findById(String id) {
     Notification notification = notificationRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Notification not found"));
-
     return toResponseDto(notification);
   }
 
@@ -54,11 +47,7 @@ public class NotificationService {
     Notification notification = notificationRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Notification not found"));
 
-    if (dto.getTitle() != null) notification.setTitle(dto.getTitle());
     if (dto.getMessage() != null) notification.setMessage(dto.getMessage());
-    if (dto.getType() != null) notification.setType(Notification.Type.valueOf(dto.getType().name()));
-    if (dto.getRead() != null) notification.setRead(dto.getRead());
-
     Notification updated = notificationRepository.save(notification);
     return toResponseDto(updated);
   }
@@ -76,12 +65,7 @@ public class NotificationService {
     NotificationResponseDto dto = new NotificationResponseDto();
     dto.setId(notification.getId());
     dto.setUserId(notification.getUserId());
-    dto.setTitle(notification.getTitle());
     dto.setMessage(notification.getMessage());
-    dto.setType(notification.getType() != null
-            ? NotificationResponseDto.Type.valueOf(notification.getType().name())
-            : null);
-    dto.setRead(notification.isRead());
     dto.setCreatedAt(notification.getCreatedAt());
     return dto;
   }

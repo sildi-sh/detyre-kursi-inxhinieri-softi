@@ -22,25 +22,11 @@ public class Notification {
   @Column(name = "user_id", columnDefinition = "CHAR(36)", nullable = false)
   private String userId;
 
-  @Column(name = "title", nullable = false)
-  private String title;   // <--- Add this field
-
   @Column(name = "message", columnDefinition = "TEXT", nullable = false)
   private String message;
 
   @Column(name = "created_at")
   private LocalDateTime createdAt;
-
-  @Column(name = "isread", nullable = false)
-  private boolean read;
-
-  @Enumerated(EnumType.STRING)
-  @Column(name = "type")
-  private Type type;
-
-  public enum Type {
-    INFO, WARNING, ERROR
-  }
 
   @PrePersist
   public void prePersist() {
