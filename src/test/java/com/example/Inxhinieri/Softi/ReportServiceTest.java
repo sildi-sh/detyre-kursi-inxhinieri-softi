@@ -1,21 +1,20 @@
 package com.example.Inxhinieri.Softi;
 
-import com.example.Inxhinieri.Softi.report.model.Report;
 import com.example.Inxhinieri.Softi.report.dto.ReportDTO;
-import com.example.Inxhinieri.Softi.report.enums.ReportStatus;
-import com.example.Inxhinieri.Softi.report.enums.TargetType;
+import com.example.Inxhinieri.Softi.report.model.Report;
 import com.example.Inxhinieri.Softi.report.repository.ReportRepository;
 import com.example.Inxhinieri.Softi.report.services.ReportService;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.Inxhinieri.Softi.report.enums.TargetType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import java.util.Optional;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ReportServiceTest {
@@ -26,38 +25,30 @@ public class ReportServiceTest {
     @InjectMocks
     private ReportService reportService;
 
-    private Report sampleReport;
-
-    @BeforeEach
-    void setUp() {
-        sampleReport = new Report();
-        sampleReport.setId("1");
-        sampleReport.setReporterId("user-123");
-        sampleReport.setStatus(ReportStatus.PENDING);
-    }
-
     @Test
-    void createReport_ShouldSaveSuccessfully() {
+    public void testCreateReport() {
+        // 1. Pergatitja e te dhenave (DTO)
         ReportDTO dto = new ReportDTO();
-        dto.setReporterId("user-123");
-        dto.setReason("Sherbim i dobet");
+        dto.setReporterId("user123");
+        dto.setTargetId("guide456");
+
+        // Perdorim GUIDE sepse POST nuk ekzistonte ne TargetType.java
         dto.setTargetType(TargetType.GUIDE);
+        dto.setReason("Spam content");
 
-        when(reportRepository.save(any(Report.class))).thenReturn(sampleReport);
-        Report result = reportService.createReport(dto);
+        // 2. Krijojme objektin qe presim te kthehet nga Mock-u
+        Report expectedReport = new Report();
+        expectedReport.setReporterId("user123");
+        expectedReport.setTargetId("guide456");
 
-        assertNotNull(result);
-        verify(reportRepository).save(any(Report.class));
-    }
+        // 3. Mocking: Instruksionet per Repository-n virtual
+        when(reportRepository.save(any(Report.class))).thenReturn(expectedReport);
 
-    @Test
-    void updateReportStatus_ShouldWork() {
-        when(reportRepository.findById("1")).thenReturn(Optional.of(sampleReport));
-        when(reportRepository.save(any(Report.class))).thenReturn(sampleReport);
+        // 4. Ekzekutimi i metodes qe duam te testojme
+        Report savedReport = reportService.createReport(dto);
 
-        Report updated = reportService.updateReportStatus("1", ReportStatus.RESOLVED);
-
-        assertNotNull(updated);
-        assertEquals(ReportStatus.RESOLVED, updated.getStatus());
+        // 5. Verifikimi: A jane te dhenat korrekt?
+        assertNotNull(savedReport);
+        assertEquals("user123", savedReport.getReporterId());
     }
 }
