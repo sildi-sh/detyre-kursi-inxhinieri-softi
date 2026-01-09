@@ -1,0 +1,2 @@
+ALTER TABLE guide
+    ADD COLUMN location VARCHAR(255);

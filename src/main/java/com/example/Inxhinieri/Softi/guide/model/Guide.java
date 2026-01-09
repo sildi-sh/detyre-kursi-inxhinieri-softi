@@ -1,9 +1,7 @@
 package com.example.Inxhinieri.Softi.guide.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.Inxhinieri.Softi.track.enums.TrackDifficulty; // Import the enum
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,9 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Guide {
-
     @Id
-    // Duke vendosur columnDefinition "CHAR(36)", kodi tani perputhet 100% me DB
     @Column(name = "id", columnDefinition = "CHAR(36)", nullable = false, updatable = false)
     private String id = UUID.randomUUID().toString();
 
@@ -32,7 +28,11 @@ public class Guide {
 
     private String location;
 
-    private String difficulty;
+    // --- CHANGE STARTS HERE ---
+    @Enumerated(EnumType.STRING) // Stores "Easy", "Medium", or "Hard" in DB
+    @Column(name = "difficulty")
+    private TrackDifficulty difficulty;
+    // --- CHANGE ENDS HERE ---
 
     @Column(name = "base_price")
     private Double basePrice;
@@ -43,7 +43,6 @@ public class Guide {
     @Column(name = "is_active")
     private Boolean isActive = true;
 
-    // Edhe lidhjet me User dhe Business duhet te jene CHAR(36) nese ID-te e tyre jane te tilla
     @Column(name = "user_id", columnDefinition = "CHAR(36)")
     private String userId;
 
